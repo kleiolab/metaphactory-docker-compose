@@ -1,0 +1,44 @@
+version: "2.2"
+services:
+ graphdb:
+  container_name: "${COMPOSE_PROJECT_NAME}-graphdb"
+  image: "${GRAPHDB_IMAGE}"
+  restart: unless-stopped
+  environment:
+     GDB_JAVA_OPTS: "-Xmx1g -Dgraphdb.license.file=/configs/${GRAPHDB_LICENSE_FILE}"
+  networks:
+     - metaphactory_network
+  volumes:
+     - ../metaphactory-graphdb/configs/:/configs
+  logging:
+   driver: json-file
+   options:
+    max-size: "200k"
+    max-file: "10"
+
+ configurator:
+  container_name: "gdb-configurator"
+  image: "alpine"
+  volumes:
+     - ../metaphactory-graphdb/configs/:/configs
+  depends_on:
+    - graphdb
+  networks:
+     - metaphactory_network
+# Sleep 10 seconds to make sure GDB is loaded and then load data and create Lucene connector.
+  command: /configs/startup.sh
+
+ graphdb-app:
+  container_name: "${COMPOSE_PROJECT_NAME}-graphdb-app"
+  image: "${GRAPHDB_APP_IMAGE}"
+
+ metaphactory:
+  environment:
+     - PLATFORM_OPTS= -Dlog4j.configurationFile=file:///var/lib/jetty/webapps/etc/log4j2-trace2.xml ${METAPHACTORY_OPTS}
+  networks:
+     - metaphactory_network
+  depends_on:
+     - graphdb-app
+     - metaphactory-data
+  volumes_from:
+     - graphdb-app

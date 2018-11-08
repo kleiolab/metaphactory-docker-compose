@@ -1,0 +1,1 @@
+INSERT DATA { _:s  <http://www.ontotext.com/plugins/autocomplete#enabled> "true" . }

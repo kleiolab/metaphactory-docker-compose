@@ -1,0 +1,14 @@
+version: "2.2"
+services:
+  graphdb:
+    ports:
+      - "7200:7200"
+    #environment:
+      #GDB_JAVA_OPTS: "-Xmx1g -Dgraphdb.license.file=/configs/GRAPHDB.license"
+
+  metaphactory:
+    #metaphactory-overwites here
+    ports:
+      - "10214:8080"
+    environment:
+      - JAVA_OPTS=-Xmx1g
