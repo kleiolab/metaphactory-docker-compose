@@ -3,7 +3,7 @@ services:
   metaphactory:
     # metaphactory overwrites here
     ports:
-      - "10214:8080"
+      - "80:8080"
     #mem_limit: 1g
     #mem_reservation: 1g
     #environment:
