@@ -1,0 +1,10 @@
+version: "2.2"
+services:
+  jdbc-postgres:
+    container_name: "${COMPOSE_PROJECT_NAME}-jdbc-postgres"
+    image: alpine
+    depends_on:
+      - metaphactory
+  metaphactory:
+    volumes:
+      - ./jdbc-postgres:/apps/jdbc-postgres
