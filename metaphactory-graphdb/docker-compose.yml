@@ -2,7 +2,7 @@ version: "2.2"
 services:
  graphdb:
   container_name: "${COMPOSE_PROJECT_NAME}-graphdb"
-  image: "${GRAPHDB_IMAGE}"
+  #image: "${GRAPHDB_IMAGE}"
   restart: unless-stopped
   environment:
     GDB_JAVA_OPTS: >-
