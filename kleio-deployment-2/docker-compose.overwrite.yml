@@ -21,7 +21,7 @@ services:
     # graphdb overwrites here
     # from https://github.com/Ontotext-AD/graphdb-docker
     build:
-      context: ../metaphactory-graphdb/graph-db-fe
+      context: ../metaphactory-graphdb/graph-db-fe/free-edition
       dockerfile: Dockerfile
       args:
         version: 9.6.0
