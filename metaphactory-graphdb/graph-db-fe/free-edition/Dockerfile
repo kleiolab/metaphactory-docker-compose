@@ -19,6 +19,10 @@ RUN apk add --no-cache bash util-linux procps net-tools busybox-extras wget less
     mv graphdb-${edition}-${version} dist && \
     mkdir -p ${GRAPHDB_HOME}
 
+# install postgres jdbc driver
+RUN curl -o /opt/graphdb/dist/lib/jdbc-postgresql-42.2.19.jar \
+    https://jdbc.postgresql.org/download/postgresql-42.2.19.jar
+
 ENV PATH=${GRAPHDB_INSTALL_DIR}/bin:$PATH
 
 CMD ["-Dgraphdb.home=/opt/graphdb/home"]
